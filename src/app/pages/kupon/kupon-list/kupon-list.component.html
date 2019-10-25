@@ -1,0 +1,43 @@
+<div class="animated fadeIn">
+    <div class="row">
+            <div class="col-lg-12">
+                    <div class="card">
+                      <div class="card-header">
+                          <div class="col-md-2">
+                               
+                          </div>
+                        <div class="col-md-5"></div>
+                        <button [routerLink]="['/kupon/add']" class="btn btn-sm btn-success  pull-right">Ekle</button>
+                      </div>
+                      <div class="card-body">
+                        <table class="table">
+                          <thead>
+                            <tr >
+                              <th>Firma adi</th>
+                              <th>Kupon kodu</th>
+                              <th>indirim miktari</th>
+                              <th> </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr ngFor="let kupon of kuponlar">
+                                    td>{{kupon.havayolu.isim}}</td>
+                              <td ng-if="kupon.yuzdeliIndirimMi else elseBlock">{{kupon.indirimMiktari}}</td>
+                              <ng-template #elseBlock>
+                                   <td ng-else>{{kupon.indirimMiktari}} tl</td>
+                                </ng-template>
+                              <td>{{kupon.isim}}</td>
+                              <td>
+                                <button type="button" (click)="onUptdate(kupon)" class="btn  btn-sm btn-primary">Düzenle</button>
+                                <button type="button" (click)="onDelete(kupon)"  class="btn btn-sm btn-danger">sil</button>                                
+                              </td>
+                            </tr>
+                            
+                           
+                          </tbody>
+                      
+                      </div>
+                    </div>
+                  </div>
+    </div>
+</div>

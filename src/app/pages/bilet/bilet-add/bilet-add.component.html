@@ -1,0 +1,172 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong>Bilet</strong> Satıs
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()" class="form-horizontal">
+
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label" for="inline-radios">gidis gönüs durumu</label>
+                            <div class="col-md-9 col-form-label">
+                                <div class="form-check form-check-inline mr-1" id="inline-radios">
+                                    <input class="form-check-input" type="radio" name="inline-radios" id="inlineRadio1"
+                                        value="option1">
+                                    <label class="form-check-label" for="inlineRadio1">gidis</label>
+                                </div>
+                                <div class="form-check form-check-inline mr-1">
+                                    <input class="form-check-input" type="radio" name="inline-radios" id="inlineRadio2"
+                                        value="option2">
+                                    <label class="form-check-label" for="inlineRadio2">gidis-dönüs</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label" for="date-input">KalkısTarihi</label>
+                            <div class="col-md-9">
+                                <input class="form-control" formControlName="gidiskalkisZamani" id="date-input" type="date" name="date-input"
+                                    placeholder="date">
+                                    <span class="help-block text-danger" *ngIf="checkoutForm.get('gidiskalkisZamani').hasError('required') && checkoutForm.get('gidiskalkisZamani').touched">
+                                      Kalkis tarihi girilmelidir
+                                   </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label" for="date-input">Gönüs Tarihi</label>
+                            <div class="col-md-9">
+                                <input class="form-control" id="date-input" formControlName="donuskalkisZamani" type="date" name="date-input"
+                                    placeholder="date">
+                                <span class="help-block"> donus  tarih girisi</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label" for="select1">Kalkis havalimani</label>
+                            <div class="col-md-9">
+                                <select id="select1" name="select1" formControlName="kalkisHavalimaniId" class="form-control">
+                                    <option  value="0">bir hava limani seçiniz...</option>
+                                    <option [value]="havalimani.id" *ngFor="let havalimani of havalimanlari">{{havalimani.isim}}</option>
+                                </select>
+                                <span class="help-block text-danger" *ngIf="checkoutForm.get('kalkisHavalimaniId').hasError('required') && checkoutForm.get('kalkisHavalimaniId').touched">
+                                  Kalkis havalimani girilmelidir
+                               </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label" for="select1">Varis havalimani</label>
+                            <div class="col-md-9">
+                                <select id="select1" name="select1" formControlName="inishavalimaniId" class="form-control">
+                                  <option  value="0">bir hava limani seçiniz...</option>
+                                  <option [value]="havalimani.id" *ngFor="let havalimani of havalimanlari">{{havalimani.isim}}</option>
+                                </select>
+                                <span class="help-block text-danger" *ngIf="checkoutForm.get('inishavalimaniId').hasError('required') && checkoutForm.get('inishavalimaniId').touched">
+                                  Varis havalimani girilmelidir
+                               </span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                          <button [disabled]="!checkoutForm.valid" type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Ara</button>
+                          <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
+                      </div>
+                    </form>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="animated fadeIn" *ngIf="seferler">
+        <div class="row">
+<div class="col-lg-12">
+        <div class="card">
+          <div class="card-header">
+            <i class="fa fa-align-justify"></i> Sefer secimi
+          </div>
+          <div class="card-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Havalimani adi</th>
+                  <th>hareket tarihi</th>
+                  <th>ucret</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let sefer of seferler">
+                  <td>{{sefer.kalkishavalimani.isim}}</td>
+                  <td>{{sefer.varishavalimani.isim}}</td>
+                  <td>{{sefer.takvim.kalkisTarihi}}</td>
+                  <td>
+                    <button type="button" class="btn btn-sm btn-success" (click)="seferSec(sefer)">seç</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <ul class="pagination">
+              <li class="page-item"><a class="page-link" href="#">sec</a></li>
+              <li class="page-item active">
+                <a class="page-link" href="#">1</a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item"><a class="page-link" href="#">4</a></li>
+              <li class="page-item"><a class="page-link" href="#">sec</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!--/.col-->
+      </div>
+</div>
+
+<div class="animated fadeIn" *ngIf="seciliSefer">
+  <div class="row">
+<div class="col-lg-12">
+  <div class="card">
+    <div class="card-header">
+      <i class="fa fa-align-justify"></i> Koltuk secimi
+    </div>
+    <div class="card-body">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Koltuk No</th>
+            <th>sınıf</th>
+            <th>Ucret</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let koltuk of koltuklar">
+            <td>{{koltuk.isim}}</td>
+            <td>{{koltuk.sinif}}</td>
+            <td>{{koltuk.ucret}}</td>
+            <td>
+              <button type="button" class="btn btn-sm btn-success" (click)="koltukSec(sefer)">seç</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <ul class="pagination">
+        <li class="page-item"><a class="page-link" href="#">sec</a></li>
+        <li class="page-item active">
+          <a class="page-link" href="#">1</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item"><a class="page-link" href="#">4</a></li>
+        <li class="page-item"><a class="page-link" href="#">sec</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<!--/.col-->
+</div>
+</div>
